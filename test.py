@@ -23,6 +23,8 @@ from RecordInfoWindow import *
 
 from coral_count import count_tentacles_actual, get_count, get_coordinates
 
+stylesheet = 'stylesheets/main_styles.css'
+
 class Window(QWidget):
     
     def __init__(self):
@@ -78,15 +80,19 @@ class Window(QWidget):
         self.countLabel.setStyleSheet(
             "color: #112d4e;"
         )
+
+        # self.countLabel.setStyleSheet(open('stylesheets/test_styles.css').read())
                 
-        self.savePicButton.setStyleSheet(
-            "border: 3px solid;"
-            "border-top-color: #00adb5;"
-            "border-left-color: #00adb5;"
-            "border-right-color: #00adb5;"
-            "border-bottom-color: #00adb5;"
-            "color: #112d4e;"
-        )
+        # self.savePicButton.setStyleSheet(
+        #     "border: 3px solid;"
+        #     "border-top-color: #00adb5;"
+        #     "border-left-color: #00adb5;"
+        #     "border-right-color: #00adb5;"
+        #     "border-bottom-color: #00adb5;"
+        #     "color: #112d4e;"
+        # )
+
+        # self.savePicButton.setStyleSheet(open(stylesheet).read())
 
         self.countButton.setStyleSheet(
             "border: 3px solid;"
@@ -96,6 +102,8 @@ class Window(QWidget):
             "border-bottom-color: #00adb5;"
             "color: #112d4e;"
         )
+
+        # self.countButton.setStyleSheet(open(stylesheet).read())
         
         # self.addFullMarkerButton.setStyleSheet(
         #     "border: 3px solid;"
@@ -109,6 +117,8 @@ class Window(QWidget):
         self.setStyleSheet(
             "QLabel {color: purple;}"
         )
+
+        # self.countLabel.setStyleSheet(open(stylesheet).read())
         
         self.smallerGridLayout = QGridLayout()
         self.smallerGridLayout.addWidget(self.countLabel, 0, 0)
@@ -145,19 +155,22 @@ class Window(QWidget):
         scroll_bar = QScrollBar(self)
  
         # setting style sheet to the scroll bar
-        scroll_bar.setStyleSheet("QScrollBar"
-                             "{"
-                             "background : #e1eedd;"
-                             "}"
-                             "QScrollBar::handle"
-                             "{"
-                             "background : #dbe2ef;"
-                             "}"
-                             "QScrollBar::handle::pressed"
-                             "{"
-                             "background : #00adb5;"
-                             "}"
+        scroll_bar.setStyleSheet(
+            '''QScrollBar
+            {
+                background : #e1eedd;
+            }
+            QScrollBar::handle
+            {
+                background : #dbe2ef;
+            }
+            QScrollBar::handle::pressed
+            {
+                background : #00adb5;
+            }'''
         )
+
+        # scroll_bar.setStyleSheet(open(stylesheet).read())
  
         # setting vertical scroll bar to it
         self.tableWidget.setVerticalScrollBar(scroll_bar)
@@ -175,9 +188,13 @@ class Window(QWidget):
             "color: #112d4e;"
         )
 
+        # self.tableWidget.setStyleSheet(open(stylesheet).read())
+
         header.setStyleSheet(
             "color: #112d4e;"
         )
+
+        # header.setStyleSheet(open(stylesheet).read())
                 
         self.btnLoad = QPushButton("Load")
         load_dotenv('config.env')
@@ -194,6 +211,10 @@ class Window(QWidget):
             "border-bottom-color: #00adb5;"
             "color: #112d4e;"
         )
+
+        # self.btnLoad.setStyleSheet(open(stylesheet).read())
+        # self.btnDelete.setStyleSheet(open(stylesheet).read())
+
         self.btnDelete.setStyleSheet(
             "border: 3px solid;"
             "border-top-color: #00adb5;"
@@ -375,6 +396,10 @@ class Window(QWidget):
             y = QMouseEvent.pos().y()
             self.photo.add_marker(x-45, y-125)
             self.countDisplay.setText("{0}".format(self.photo.marker_count))
+        if QMouseEvent.button() == Qt.RightButton:
+            print("Right click on a marker to remove it")
+            # self.photo.remove_marker(selected_marker)
+            # Right click on a marker to remove it
     
     # def addFullMarker(self):
     #     # self.photo.add_marker()

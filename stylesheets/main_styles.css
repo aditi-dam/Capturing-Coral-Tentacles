@@ -1,0 +1,64 @@
+/* test.py */
+
+countLabel {
+    color: #112d4e;
+}
+
+QPushButton#savePicButton {
+    border: 3px solid;
+    border-top-color: #00adb5;
+    border-left-color: #00adb5;
+    border-right-color: #00adb5;
+    border-bottom-color: #00adb5;
+    color: #112d4e;
+}
+
+countButton {
+    border: 3px solid;
+    border-top-color: #00adb5;
+    border-left-color: #00adb5;
+    border-right-color: #00adb5;
+    border-bottom-color: #00adb5;
+    color: #112d4e;
+}
+
+scroll_bar.QScrollBar {
+    background: #e1eedd;
+}
+scroll_bar.QScrollBar::handle {
+    background: #dbe2ef;
+}
+scroll_bar.QScrollBar::handle::pressed {
+    background: #00adb5;
+}
+
+tableWidget {
+    border: 1px solid;
+    border-top-color: #00adb5;
+    border-left-color: #00adb5;
+    border-right-color: #00adb5;
+    border-bottom-color: #00adb5;
+    color: #112d4e;
+}
+
+header {
+    color: #112d4e;
+}
+
+btnLoad {
+    border: 3px solid;
+    border-top-color: #00adb5;
+    border-left-color: #00adb5;
+    border-right-color: #00adb5;
+    border-bottom-color: #00adb5;
+    color: #112d4e;
+}
+
+btnDelete {
+    border: 3px solid;
+    border-top-color: #00adb5;
+    border-left-color: #00adb5;
+    border-right-color: #00adb5;
+    border-bottom-color: #00adb5;
+    color: #112d4e;
+}

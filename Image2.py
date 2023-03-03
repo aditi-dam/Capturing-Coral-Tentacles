@@ -89,3 +89,7 @@ class Image2(QWidget):
         self.scene.addItem(ellipse)
         self.marker_count += 1
         self.markers.append(ellipse)
+
+    def remove_marker(self, selected_marker):
+        # TODO
+        print("TODO")
