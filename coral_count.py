@@ -31,7 +31,8 @@ def count_tentacles_actual(img):
         imgsz=(640, 640),
         conf_thres=0.3,
         save_txt=True,
-        hide_labels=True
+        hide_labels=True,
+        # save_conf=True
     )
 
     # Return filename of new labeled image
