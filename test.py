@@ -370,7 +370,7 @@ class Window(QWidget):
             # print(self.photo.markers)
 
     def mousePressEvent(self, QMouseEvent):
-        if QMouseEvent.button() == Qt.RightButton:
+        if QMouseEvent.button() == Qt.LeftButton:
             x = QMouseEvent.pos().x()
             y = QMouseEvent.pos().y()
             self.photo.add_marker(x-45, y-125)
