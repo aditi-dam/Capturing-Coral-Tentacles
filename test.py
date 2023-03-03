@@ -23,7 +23,6 @@ from RecordInfoWindow import *
 
 from coral_count import count_tentacles_actual, get_count, get_coordinates
 
-
 class Window(QWidget):
     
     def __init__(self):
@@ -70,8 +69,10 @@ class Window(QWidget):
         self.countLabel = QLabel("Tentacle Count:")
         self.countDisplay = QLineEdit("{0}".format(0))
 
-        self.addFullMarkerButton = QPushButton("Add Marker")
-        self.addFullMarkerButton.clicked.connect(self.addFullMarker)
+        self.setMouseTracking(True)
+
+        # self.addFullMarkerButton = QPushButton("Add Marker")
+        # self.addFullMarkerButton.clicked.connect(self.addFullMarker)
 
         
         self.countLabel.setStyleSheet(
@@ -96,14 +97,14 @@ class Window(QWidget):
             "color: #112d4e;"
         )
         
-        self.addFullMarkerButton.setStyleSheet(
-            "border: 3px solid;"
-            "border-top-color: #00adb5;"
-            "border-left-color: #00adb5;"
-            "border-right-color: #00adb5;"
-            "border-bottom-color: #00adb5;"
-            "color: #112d4e;"
-        )
+        # self.addFullMarkerButton.setStyleSheet(
+        #     "border: 3px solid;"
+        #     "border-top-color: #00adb5;"
+        #     "border-left-color: #00adb5;"
+        #     "border-right-color: #00adb5;"
+        #     "border-bottom-color: #00adb5;"
+        #     "color: #112d4e;"
+        # )
 
         self.setStyleSheet(
             "QLabel {color: purple;}"
@@ -118,7 +119,7 @@ class Window(QWidget):
         self.smallGridLayout.addWidget(self.savePicButton, 1, 0)
         self.smallGridLayout.addWidget(self.countButton, 2, 0)
         self.smallGridLayout.addLayout(self.smallerGridLayout, 3, 0)
-        self.smallGridLayout.addWidget(self.addFullMarkerButton, 4, 0)
+        # self.smallGridLayout.addWidget(self.addFullMarkerButton, 4, 0)
 
         self.generalLayout.addLayout(self.smallGridLayout, 0, 1)
 
@@ -357,19 +358,28 @@ class Window(QWidget):
         coordinates = get_coordinates()
 
         for pair in coordinates:
-            ellipse = QGraphicsEllipseItem(
-                pair[0]*(photo_width/1.6), pair[1]*(photo_height/1.5), 15, 15
-            )
-            ellipse.setBrush(QBrush(Qt.yellow))
-            ellipse.setFlag(QGraphicsItem.ItemIsMovable)
-            self.photo.scene.addItem(ellipse)
-            self.photo.marker_count += 1
-            self.photo.markers.append(ellipse)
+            self.photo.add_marker(pair[0]*(photo_width/1.6), pair[1]*(photo_height/1.5))
+            # ellipse = QGraphicsEllipseItem(
+            #     pair[0]*(photo_width/1.6), pair[1]*(photo_height/1.5), 15, 15
+            # )
+            # ellipse.setBrush(QBrush(Qt.yellow))
+            # ellipse.setFlag(QGraphicsItem.ItemIsMovable)
+            # self.photo.scene.addItem(ellipse)
+            # self.photo.marker_count += 1
+            # self.photo.markers.append(ellipse)
             # print(self.photo.markers)
+
+    def mousePressEvent(self, QMouseEvent):
+        if QMouseEvent.button() == Qt.RightButton:
+            x = QMouseEvent.pos().x()
+            y = QMouseEvent.pos().y()
+            self.photo.add_marker(x-45, y-125)
+            self.countDisplay.setText("{0}".format(self.photo.marker_count))
     
-    def addFullMarker(self):
-        self.photo.add_marker()
-        self.countDisplay.setText("{0}".format(self.photo.marker_count))
+    # def addFullMarker(self):
+    #     # self.photo.add_marker()
+    #     self.photo.mousePressEvent()
+    #     self.countDisplay.setText("{0}".format(self.photo.marker_count))
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

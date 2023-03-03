@@ -21,8 +21,6 @@ class Image2(QWidget):
         self.photo.setFixedWidth(800)
         self.photo.setFixedHeight(500)
         
-        
-        
         btn = QPushButton('Browse')
         btn.setFixedWidth(800)
         btn.setFixedHeight(50)
@@ -83,9 +81,9 @@ class Image2(QWidget):
         
     def get_filename(self):
         return self.file
-        
-    def add_marker(self):
-        ellipse = QGraphicsEllipseItem(0, 0, 15, 15)
+         
+    def add_marker(self, x_pos, y_pos):
+        ellipse = QGraphicsEllipseItem(x_pos, y_pos, 15, 15)
         ellipse.setBrush(QBrush(Qt.yellow))
         ellipse.setFlag(QGraphicsItem.ItemIsMovable)
         self.scene.addItem(ellipse)
