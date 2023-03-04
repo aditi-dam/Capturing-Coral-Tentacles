@@ -23,8 +23,6 @@ from RecordInfoWindow import *
 
 from coral_count import count_tentacles_actual, get_count, get_coordinates
 
-stylesheet = 'stylesheets/main_styles.css'
-
 class Window(QWidget):
     
     def __init__(self):
@@ -73,53 +71,6 @@ class Window(QWidget):
 
         self.setMouseTracking(True)
 
-        # self.addFullMarkerButton = QPushButton("Add Marker")
-        # self.addFullMarkerButton.clicked.connect(self.addFullMarker)
-
-        
-        self.countLabel.setStyleSheet(
-            "color: #112d4e;"
-        )
-
-        # self.countLabel.setStyleSheet(open('stylesheets/test_styles.css').read())
-                
-        # self.savePicButton.setStyleSheet(
-        #     "border: 3px solid;"
-        #     "border-top-color: #00adb5;"
-        #     "border-left-color: #00adb5;"
-        #     "border-right-color: #00adb5;"
-        #     "border-bottom-color: #00adb5;"
-        #     "color: #112d4e;"
-        # )
-
-        # self.savePicButton.setStyleSheet(open(stylesheet).read())
-
-        self.countButton.setStyleSheet(
-            "border: 3px solid;"
-            "border-top-color: #00adb5;"
-            "border-left-color: #00adb5;"
-            "border-right-color: #00adb5;"
-            "border-bottom-color: #00adb5;"
-            "color: #112d4e;"
-        )
-
-        # self.countButton.setStyleSheet(open(stylesheet).read())
-        
-        # self.addFullMarkerButton.setStyleSheet(
-        #     "border: 3px solid;"
-        #     "border-top-color: #00adb5;"
-        #     "border-left-color: #00adb5;"
-        #     "border-right-color: #00adb5;"
-        #     "border-bottom-color: #00adb5;"
-        #     "color: #112d4e;"
-        # )
-
-        self.setStyleSheet(
-            "QLabel {color: purple;}"
-        )
-
-        # self.countLabel.setStyleSheet(open(stylesheet).read())
-        
         self.smallerGridLayout = QGridLayout()
         self.smallerGridLayout.addWidget(self.countLabel, 0, 0)
         self.smallerGridLayout.addWidget(self.countDisplay, 0, 1)
@@ -132,6 +83,35 @@ class Window(QWidget):
         # self.smallGridLayout.addWidget(self.addFullMarkerButton, 4, 0)
 
         self.generalLayout.addLayout(self.smallGridLayout, 0, 1)
+
+        
+        # Stylesheets
+        self.countLabel.setStyleSheet(
+            "color: #112d4e;"
+        )
+        
+        self.savePicButton.setStyleSheet(
+            "border: 3px solid;"
+            "border-top-color: #00adb5;"
+            "border-left-color: #00adb5;"
+            "border-right-color: #00adb5;"
+            "border-bottom-color: #00adb5;"
+            "color: #112d4e;"
+        )
+
+        self.countButton.setStyleSheet(
+            "border: 3px solid;"
+            "border-top-color: #00adb5;"
+            "border-left-color: #00adb5;"
+            "border-right-color: #00adb5;"
+            "border-bottom-color: #00adb5;"
+            "color: #112d4e;"
+        )
+
+        self.setStyleSheet(
+            "QLabel {color: purple;}"
+        )
+        
 
         generalTab.setLayout(self.generalLayout)
         return generalTab
@@ -169,16 +149,28 @@ class Window(QWidget):
                 background : #00adb5;
             }'''
         )
-
-        # scroll_bar.setStyleSheet(open(stylesheet).read())
  
         # setting vertical scroll bar to it
         self.tableWidget.setVerticalScrollBar(scroll_bar)
  
- 
         layout.addWidget(self.tableWidget, 0, 0) 
+
+        self.btnLoad = QPushButton("Load")
+        load_dotenv('config.env')
+        self.btnLoad.clicked.connect(self.DBConnect)
+        self.btnDelete = QPushButton("Delete")
+        load_dotenv('config.env')
+        self.btnDelete.clicked.connect(self.deleteRow)
+
+        self.smGridLayout = QGridLayout()
+        #self.smallGridLayout.addWidget(self.galleryButton, 0, 0)
+        self.smGridLayout.addWidget(self.btnLoad, 0, 0)
+        self.smGridLayout.addWidget(self.btnDelete, 0, 1)
+
+        layout.addLayout(self.smGridLayout, 1, 0)
+
         
-        
+        # Stylesheets
         self.tableWidget.setStyleSheet(
             "border: 1px solid;"
             "border-top-color: #00adb5;"
@@ -188,21 +180,10 @@ class Window(QWidget):
             "color: #112d4e;"
         )
 
-        # self.tableWidget.setStyleSheet(open(stylesheet).read())
-
         header.setStyleSheet(
             "color: #112d4e;"
         )
 
-        # header.setStyleSheet(open(stylesheet).read())
-                
-        self.btnLoad = QPushButton("Load")
-        load_dotenv('config.env')
-        self.btnLoad.clicked.connect(self.DBConnect)
-        self.btnDelete = QPushButton("Delete")
-        load_dotenv('config.env')
-        self.btnDelete.clicked.connect(self.deleteRow)
-        
         self.btnLoad.setStyleSheet(
             "border: 3px solid;"
             "border-top-color: #00adb5;"
@@ -211,9 +192,6 @@ class Window(QWidget):
             "border-bottom-color: #00adb5;"
             "color: #112d4e;"
         )
-
-        # self.btnLoad.setStyleSheet(open(stylesheet).read())
-        # self.btnDelete.setStyleSheet(open(stylesheet).read())
 
         self.btnDelete.setStyleSheet(
             "border: 3px solid;"
@@ -224,21 +202,13 @@ class Window(QWidget):
             "color: #112d4e;"
         )
         
-        self.smGridLayout = QGridLayout()
-        #self.smallGridLayout.addWidget(self.galleryButton, 0, 0)
-        self.smGridLayout.addWidget(self.btnLoad, 0, 0)
-        self.smGridLayout.addWidget(self.btnDelete, 0, 1)
-
-        layout.addLayout(self.smGridLayout, 1, 0)
-        
-        
         
         #layout.addWidget(QCheckBox("Network Option 2"))
         recordTab.setLayout(layout)
         
         return recordTab
     
-        
+
     def deleteRow(self):
         # print("Hi")
         if self.tableWidget.rowCount() > 0:
@@ -343,7 +313,13 @@ class Window(QWidget):
                 mycursor = mydb.cursor()
                 
                 #mycursor.execute(mySql_insert_query)
-                mycursor.execute("INSERT INTO image_info VALUES (%s, %s, %s, %s, %s)", (self.photo.get_filename(), self.photo.marker_count, self.g.get_name(),  date.today(), self.g.get_notes()))
+                mycursor.execute(
+                    "INSERT INTO image_info VALUES (%s, %s, %s, %s, %s)", 
+                    (
+                        self.photo.get_filename(), self.photo.marker_count, 
+                        self.g.get_name(), date.today(), self.g.get_notes()
+                    )
+                )
                 mydb.commit()
 
                 #QMessageBox.about(self, "Connection", "Database Connected Successfully")
@@ -396,10 +372,6 @@ class Window(QWidget):
             y = QMouseEvent.pos().y()
             self.photo.add_marker(x-45, y-125)
             self.countDisplay.setText("{0}".format(self.photo.marker_count))
-        if QMouseEvent.button() == Qt.RightButton:
-            print("Right click on a marker to remove it")
-            # self.photo.remove_marker(selected_marker)
-            # Right click on a marker to remove it
     
     # def addFullMarker(self):
     #     # self.photo.add_marker()
