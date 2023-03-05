@@ -35,10 +35,36 @@ class Window(QWidget):
         self.setLayout(layout)
         self.count = 0
         # Create the tab widget with two tabs
-        tabs = QTabWidget()
-        tabs.addTab(self.generalTabUI(), "Main")
-        tabs.addTab(self.recordTabUI(), "Record")
-        layout.addWidget(tabs)
+        self.tabs = QTabWidget()
+        general_tab = self.generalTabUI()
+        record_tab = self.recordTabUI()
+
+        self.tabs.addTab(general_tab, "Main")
+        self.tabs.addTab(record_tab, "Record")
+        layout.addWidget(self.tabs)
+
+        # Keyboard shortcuts
+        self.count_shortcut = QShortcut(Qt.Key_C, self)
+        self.save_shortcut = QShortcut(QKeySequence("Ctrl+S"), self)
+        self.load_shortcut = QShortcut(Qt.Key_Return, self)
+        self.delete_shortcut = QShortcut(Qt.Key_Delete, self)
+        self.tab_shortcut = QShortcut(Qt.Key_Tab, self)
+        self.quit_shortcut = QShortcut(QKeySequence("Ctrl+W"), self)
+        
+        self.count_shortcut.activated.connect(self.countTentacles)
+        self.save_shortcut.activated.connect(self.recordInfo)
+        self.load_shortcut.activated.connect(self.DBConnect)
+        self.delete_shortcut.activated.connect(self.deleteRow)
+        self.tab_shortcut.activated.connect(self.switchTabs)
+        self.quit_shortcut.activated.connect(self.close)
+        
+    def switchTabs(self):
+        if self.tabs.isTabEnabled(0):
+            self.tabs.setTabEnabled(1, True)
+            self.tabs.setTabEnabled(0, False)
+        else:
+            self.tabs.setTabEnabled(0, True)
+            self.tabs.setTabEnabled(1, False)
 
     def generalTabUI(self):
         #"""Create the General page UI."""
@@ -111,7 +137,6 @@ class Window(QWidget):
         self.setStyleSheet(
             "QLabel {color: purple;}"
         )
-        
 
         generalTab.setLayout(self.generalLayout)
         return generalTab
@@ -276,7 +301,7 @@ class Window(QWidget):
         except mydb.Error as e:
            print("Failed To Connect to Database")
             
-    def recordInfo(self, checked):
+    def recordInfo(self):   # checked parameter? Is it needed?
         if self.photo.get_filename() == "":
             QMessageBox.about(self, "Warning", "You did not upload an image!")
         #if self.g is None:

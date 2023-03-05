@@ -54,6 +54,10 @@ class Image2(QWidget):
         self.marker_count = 0
         self.markers = []
         self.setAcceptDrops(True)
+
+        # Keyboard shortcut
+        self.browse_shortcut = QShortcut(Qt.Key_B, self)
+        self.browse_shortcut.activated.connect(self.open_image)
         
     def open_image(self, filename=None):
         #global photo_path
