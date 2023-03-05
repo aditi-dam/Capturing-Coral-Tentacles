@@ -20,3 +20,16 @@ To be able to run this project in VS Code, please complete the following steps.
         rf = Roboflow(api_key="buPitnxBypsxxPYEfGzD")
         project = rf.workspace("capstone-capturing-coral-tentacles").project("coral-tentacle-detection")
         dataset = project.version(1).download("yolov5")
+
+*Keyboard Shortcut Guide*
+    On Main tab:
+        B - Browse photos
+        C - Count
+        Ctrl+S - Save photo to record
+
+    On Record tab:
+        Enter - Load from database
+        Delete - Delete selected database entry
+
+    Tab - Switch between tabs
+    Ctrl+W - Close application
